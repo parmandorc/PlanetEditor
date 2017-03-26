@@ -128,4 +128,26 @@ public class Sphere : MonoBehaviour
 		mesh.triangles = newTriangles.ToArray();
 		mesh.normals = newVertices.ToArray();
 	}
+
+	public Vector3[] GetPoints()
+	{
+		return mesh.vertices;
+	}
+		
+	public void SetRadiuses(float[] radiuses)
+	{
+		Vector3[] vertices = mesh.vertices;
+
+		if (radiuses.Length != vertices.Length) 
+		{
+			Debug.LogError("The array of radiuses provided doesn't match the length of the array of vertices of the mesh.");
+		}
+
+		for (int i = 0; i < vertices.Length; i++) 
+		{
+			vertices[i] = vertices[i].normalized * radiuses[i];
+		}
+
+		mesh.vertices = vertices;
+	}
 }
