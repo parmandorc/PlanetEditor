@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Xml;
+using System.Xml.Serialization;
 
 // This class represents all the data for a wave
 public class WaveData
 {
+	[XmlAttribute("amplitude")]
 	public float amplitude;
+
+	[XmlAttribute("frequency")]
 	public float frequency;
+
+	[XmlAttribute("speed")]
 	public float speed;
+
+	[XmlAttribute("offset")]
 	public float offset;
 
 	public WaveData() {}

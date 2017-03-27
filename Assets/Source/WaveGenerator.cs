@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 [RequireComponent(typeof(Sphere))]
 public class WaveGenerator : MonoBehaviour
 {
+	public const string dataFileName = "wavedata.xml";
+
 	// The sphere mesh component
 	private Sphere sphere;
 
@@ -12,7 +15,7 @@ public class WaveGenerator : MonoBehaviour
 	private float time;
 
 	// The wave data objects that define the generation
-	private List<WaveData> waveData;
+	private WaveDataContainer waveData;
 	
 	void Awake() 
 	{
@@ -22,13 +25,13 @@ public class WaveGenerator : MonoBehaviour
 
 	void Start()
 	{
-		waveData = new List<WaveData> (new WaveData[] {
-			new WaveData(0.03f, 10.0f, 0.05f),
-			new WaveData(0.015f, 20.0f, 0.05f, Mathf.Deg2Rad * 90.0f),
-			new WaveData(0.01f, 20.0f, 0.05f),
-			new WaveData(0.01f, 30.0f, 0.2f),
-			new WaveData(0.0015f, 80.0f, 0.5f)
-		});
+		// Load wave data from file
+		waveData = WaveDataContainer.Load(Path.Combine(Application.persistentDataPath, dataFileName));
+
+		if (waveData == null)
+		{
+			waveData = WaveDataContainer.Load(Path.Combine(Application.dataPath, dataFileName));
+		}
 	}
 
 	void Update()
