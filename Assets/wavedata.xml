@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <WaveDataContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <anyType xsi:type="WaveData" amplitude="0.03" frequency="10" speed="0.05" offset="0" />
-  <anyType xsi:type="WaveData" amplitude="0.015" frequency="20" speed="0.05" offset="1.57079637" />
-  <anyType xsi:type="WaveData" amplitude="0.01" frequency="20" speed="0.05" offset="0" />
-  <anyType xsi:type="WaveData" amplitude="0.01" frequency="30" speed="0.2" offset="0" />
-  <anyType xsi:type="WaveData" amplitude="0.0015" frequency="80" speed="0.5" offset="0" />
+  <anyType xsi:type="WaveData" amplitude="0.025" frequency="10" speed="0.05" offset="0" />
+  <anyType xsi:type="WaveData" amplitude="0.0125" frequency="20" speed="0.05" offset="1.57079637" />
+  <anyType xsi:type="WaveData" amplitude="0.0125" frequency="20" speed="0.1" offset="3.14159" />
+  <anyType xsi:type="WaveData" amplitude="0.0075" frequency="20" speed="0.05" offset="0" />
+  <anyType xsi:type="WaveData" amplitude="0.0075" frequency="30" speed="0.2" offset="0" />
+  <anyType xsi:type="WaveData" amplitude="0.005" frequency="30" speed="0.2" offset="1.57079637" />
+  <anyType xsi:type="WaveData" amplitude="0.00075" frequency="80" speed="0.5" offset="0" />
+  <anyType xsi:type="WaveData" amplitude="0.0005" frequency="100" speed="0.75" offset="0" />
 </WaveDataContainer>
