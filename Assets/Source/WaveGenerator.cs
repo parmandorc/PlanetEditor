@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Sphere))]
 public class WaveGenerator : MonoBehaviour
 {
-
-
 	// The sphere mesh component
 	private Sphere sphere;
 
@@ -25,7 +23,8 @@ public class WaveGenerator : MonoBehaviour
 	void Start()
 	{
 		waveData = new List<WaveData> (new WaveData[] {
-			new WaveData(0.02f, 10.0f, 0.05f),
+			new WaveData(0.03f, 10.0f, 0.05f),
+			new WaveData(0.015f, 20.0f, 0.05f, Mathf.Deg2Rad * 90.0f),
 			new WaveData(0.01f, 20.0f, 0.05f),
 			new WaveData(0.01f, 30.0f, 0.2f),
 			new WaveData(0.0015f, 80.0f, 0.5f)
