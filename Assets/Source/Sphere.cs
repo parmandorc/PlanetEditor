@@ -137,6 +137,7 @@ public class Sphere : MonoBehaviour
 	public void SetRadiuses(float[] radiuses)
 	{
 		Vector3[] vertices = mesh.vertices;
+		Color[] colors = new Color[vertices.Length];
 
 		if (radiuses.Length != vertices.Length) 
 		{
@@ -146,8 +147,10 @@ public class Sphere : MonoBehaviour
 		for (int i = 0; i < vertices.Length; i++) 
 		{
 			vertices[i] = vertices[i].normalized * radiuses[i];
+			colors[i] = Color.blue;
 		}
 
 		mesh.vertices = vertices;
+		mesh.colors = colors;
 	}
 }
