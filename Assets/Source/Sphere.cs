@@ -5,11 +5,21 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Sphere : MonoBehaviour 
 {
+	public enum RenderMode {Solid, Gradient};
+
 	[SerializeField]
 	private uint RecursionLevel;
 
+	[SerializeField]
+	private Color SolidColor;
+
+	[SerializeField]
+	private Gradient ColorGradient;
+
 	// The mesh of the sphere
 	private Mesh mesh;
+
+	private RenderMode renderMode;
 
 	void Awake() 
 	{
@@ -147,10 +157,24 @@ public class Sphere : MonoBehaviour
 		for (int i = 0; i < vertices.Length; i++) 
 		{
 			vertices[i] = vertices[i].normalized * radiuses[i];
-			colors[i] = Color.blue;
+
+			// Set vertex color
+			if (renderMode == RenderMode.Gradient)
+			{
+				colors [i] = ColorGradient.Evaluate (radiuses [i] * 0.5f); // radiuses[i] is in range [0.0f, 2.0f], need in [0.0f, 1.0f]
+			} 
+			else 
+			{
+				colors [i] = SolidColor;
+			}
 		}
 
 		mesh.vertices = vertices;
 		mesh.colors = colors;
+	}
+
+	public void SetRenderMode(RenderMode mode)
+	{
+		renderMode = mode;
 	}
 }
