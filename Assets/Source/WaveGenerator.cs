@@ -40,20 +40,29 @@ public class WaveGenerator : MonoBehaviour
 
 		Vector3[] points = sphere.GetPoints();
 		float[] heights = new float[points.Length];
+		Vector3[] normals = new Vector3[points.Length];
 
 		// Determine the height of each point
 		for (int i = 0; i < points.Length; i++)
 		{
 			float angle = Mathf.Acos(points[i].normalized.y);
+			float derivative = 0.0f;
 
 			foreach(WaveData wave in waveData)
 			{
 				heights[i] += wave.GetValue(time, angle);
+				derivative += wave.GetDerivative(time, angle);
 			}
 
 			heights[i] = 1.0f + heights[i];
+			derivative *= 100.0f;
+
+			Vector3 axis = Vector3.Cross(points[i].normalized, Vector3.up);
+			Quaternion rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan(derivative), axis);
+			normals[i] = rotation * points[i].normalized;
 		}
 
 		sphere.SetRadiuses(heights);
+		sphere.SetNormals(normals);
 	}
 }

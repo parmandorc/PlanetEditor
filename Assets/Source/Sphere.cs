@@ -180,6 +180,11 @@ public class Sphere : MonoBehaviour
 		mesh.colors = colors;
 	}
 
+	public void SetNormals(Vector3[] normals)
+	{
+		mesh.normals = normals;
+	}
+
 	public void SetRenderMode(RenderMode mode)
 	{
 		if (renderMode == RenderMode.Default && mode != RenderMode.Default) 

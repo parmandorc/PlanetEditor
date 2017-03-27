@@ -34,4 +34,9 @@ public class WaveData
 	{
 		return Mathf.Sin((t * speed + delta) * frequency + offset) * amplitude;
 	}
+
+	public float GetDerivative(float t, float delta)
+	{
+		return amplitude * frequency * speed *Mathf.Cos((t * speed + delta) * frequency + offset) * amplitude;
+	}
 }
