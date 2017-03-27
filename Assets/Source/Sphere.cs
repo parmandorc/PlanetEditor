@@ -5,10 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Sphere : MonoBehaviour 
 {
-	public enum RenderMode {Solid, Gradient};
+	public enum RenderMode {Default, Solid, Gradient};
 
 	[SerializeField]
 	private uint RecursionLevel;
+
+	[SerializeField]
+	private Material DefaultMaterial;
+
+	[SerializeField]
+	private Material VertexColorMaterial;
 
 	[SerializeField]
 	private Color SolidColor;
@@ -27,6 +33,7 @@ public class Sphere : MonoBehaviour
 		mesh = new Mesh();
 		mesh.name = gameObject.name + "_mesh";
 		GetComponent<MeshFilter>().mesh = mesh;
+		GetComponent<Renderer>().material = DefaultMaterial;
 	}
 
 	void Start()
@@ -175,6 +182,15 @@ public class Sphere : MonoBehaviour
 
 	public void SetRenderMode(RenderMode mode)
 	{
+		if (renderMode == RenderMode.Default && mode != RenderMode.Default) 
+		{
+			GetComponent<Renderer>().material = VertexColorMaterial;
+		} 
+		else if (renderMode != RenderMode.Default && mode == RenderMode.Default) 
+		{
+			GetComponent<Renderer>().material = DefaultMaterial;
+		}
+
 		renderMode = mode;
 	}
 }
