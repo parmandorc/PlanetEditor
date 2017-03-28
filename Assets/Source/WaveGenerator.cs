@@ -6,6 +6,9 @@ using System.IO;
 [RequireComponent(typeof(Sphere))]
 public class WaveGenerator : MonoBehaviour
 {
+	public delegate void UIEvent(WaveDataContainer waveData);
+	public static event UIEvent OnLoadWaveData;
+
 	public const string dataFileName = "wavedata.xml";
 
 	// The sphere mesh component
@@ -35,6 +38,11 @@ public class WaveGenerator : MonoBehaviour
 		if (waveData == null)
 		{
 			waveData = WaveDataContainer.Load(Path.Combine(Application.dataPath, dataFileName));
+		}
+
+		if (OnLoadWaveData != null)
+		{
+			OnLoadWaveData(waveData);
 		}
 	}
 

@@ -7,7 +7,18 @@ public class EditorManager : MonoBehaviour
 	[SerializeField]
 	private Sphere sphere;
 
+	[SerializeField]
+	private WaveEditorUIManager WaveDataEditorPrefab;
+
+	[SerializeField]
+	private Transform WaveDataEditorPanel;
+
 	private WaveGenerator waveGenerator;
+
+	void Awake()
+	{
+		WaveGenerator.OnLoadWaveData += OnLoadWaveData;
+	}
 
 	void Start()
 	{
@@ -25,4 +36,21 @@ public class EditorManager : MonoBehaviour
 
 	// Normals
 	public void UseRecalculatedNormals(bool value) { waveGenerator.UseRecalculatedNormals(value); }
+
+
+	// --- Wave data edition ----
+
+	private void NewWave(WaveData waveData)
+	{
+		WaveEditorUIManager element = GameObject.Instantiate<WaveEditorUIManager>(WaveDataEditorPrefab, WaveDataEditorPanel);
+		element.SetWaveData(waveData);
+	}
+
+	public void OnLoadWaveData(WaveDataContainer waveData)
+	{
+		foreach(WaveData wave in waveData)
+		{
+			NewWave(wave);
+		}
+	}
 }
