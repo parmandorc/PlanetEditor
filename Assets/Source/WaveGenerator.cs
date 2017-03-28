@@ -105,4 +105,11 @@ public class WaveGenerator : MonoBehaviour
 	{
 		duration = value;
 	}
+
+	public WaveData NewWave()
+	{
+		WaveData newWave = new WaveData(0.025f, 25.0f, 0.1f);
+		waveData.Add(newWave);
+		return newWave;
+	}
 }

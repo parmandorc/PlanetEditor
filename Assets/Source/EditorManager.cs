@@ -53,4 +53,9 @@ public class EditorManager : MonoBehaviour
 			NewWave(wave);
 		}
 	}
+
+	public void NewWave()
+	{
+		NewWave(waveGenerator.NewWave());
+	}
 }
