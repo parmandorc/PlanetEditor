@@ -16,7 +16,9 @@ public class WaveGenerator : MonoBehaviour
 
 	// The wave data objects that define the generation
 	private WaveDataContainer waveData;
-	
+
+	private bool useRecalculatedNormals = true;
+
 	void Awake() 
 	{
 		sphere = GetComponent<Sphere>();
@@ -45,24 +47,43 @@ public class WaveGenerator : MonoBehaviour
 		// Determine the height of each point
 		for (int i = 0; i < points.Length; i++)
 		{
+			// Get height values
 			float angle = Mathf.Acos(points[i].normalized.y);
-			float derivative = 0.0f;
-
 			foreach(WaveData wave in waveData)
 			{
 				heights[i] += wave.GetValue(time, angle);
-				derivative += wave.GetDerivative(time, angle);
 			}
-
 			heights[i] = 1.0f + heights[i];
-			derivative *= 100.0f;
 
-			Vector3 axis = Vector3.Cross(points[i].normalized, Vector3.up);
-			Quaternion rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan(derivative), axis);
-			normals[i] = rotation * points[i].normalized;
+			// Compute normals
+			if (useRecalculatedNormals)
+			{
+				// Compute derivative
+				float derivative = 0.0f;
+				foreach(WaveData wave in waveData)
+				{
+					derivative += wave.GetDerivative(time, angle);
+				}
+				derivative *= 100.0f;
+
+				// Compute normal from derivative
+				Vector3 axis = Vector3.Cross(points[i].normalized, Vector3.up);
+				Quaternion rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan(derivative), axis);
+				normals[i] = rotation * points[i].normalized;
+			} 
+			else 
+			{
+				// Use canonical normals (those of the regular sphere)
+				normals[i] = points[i].normalized;
+			}
 		}
 
 		sphere.SetRadiuses(heights);
 		sphere.SetNormals(normals);
+	}
+
+	public void UseRecalculatedNormals(bool value)
+	{
+		useRecalculatedNormals = value;
 	}
 }
