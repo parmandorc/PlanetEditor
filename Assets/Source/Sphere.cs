@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Sphere : MonoBehaviour 
 {
-	public enum RenderMode {Default, Solid, Gradient};
+	public enum RenderMode {Default, Wireframe, Solid, Gradient};
 
 	[SerializeField]
 	private uint RecursionLevel;
@@ -27,13 +27,16 @@ public class Sphere : MonoBehaviour
 
 	private RenderMode renderMode;
 
+	new private Renderer renderer;
+
 	void Awake() 
 	{
 		// Create the mesh component
 		mesh = new Mesh();
 		mesh.name = gameObject.name + "_mesh";
 		GetComponent<MeshFilter>().mesh = mesh;
-		GetComponent<Renderer>().material = DefaultMaterial;
+		renderer = GetComponent<Renderer> ();
+		renderer.material = DefaultMaterial;
 	}
 
 	void Start()
@@ -187,13 +190,26 @@ public class Sphere : MonoBehaviour
 
 	public void SetRenderMode(RenderMode mode)
 	{
+		// Set appropriate material
 		if (renderMode == RenderMode.Default && mode != RenderMode.Default) 
 		{
-			GetComponent<Renderer>().material = VertexColorMaterial;
+			renderer.material = VertexColorMaterial;
 		} 
 		else if (renderMode != RenderMode.Default && mode == RenderMode.Default) 
 		{
-			GetComponent<Renderer>().material = DefaultMaterial;
+			renderer.material = DefaultMaterial;
+		}
+
+		// Set appropriate mesh topology (wireframe or not)
+		if (renderMode == RenderMode.Wireframe && mode != RenderMode.Wireframe) 
+		{
+			mesh.SetIndices(mesh.GetIndices(0), MeshTopology.Triangles, 0);
+			renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+		} 
+		else if (renderMode != RenderMode.Wireframe && mode == RenderMode.Wireframe) 
+		{
+			mesh.SetIndices(mesh.GetIndices(0), MeshTopology.Lines, 0);
+			renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 		}
 
 		renderMode = mode;
