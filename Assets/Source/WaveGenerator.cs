@@ -117,4 +117,9 @@ public class WaveGenerator : MonoBehaviour
 	{
 		waveData.Remove(wave);
 	}
+
+	public void SaveWaveData()
+	{
+		waveData.Save(Path.Combine(Application.persistentDataPath, dataFileName));
+	}
 }
