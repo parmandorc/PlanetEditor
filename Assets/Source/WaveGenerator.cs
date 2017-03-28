@@ -14,6 +14,8 @@ public class WaveGenerator : MonoBehaviour
 	// The accumulated time
 	private float time;
 
+	private float duration = 0.0f;
+
 	// The wave data objects that define the generation
 	private WaveDataContainer waveData;
 
@@ -39,6 +41,10 @@ public class WaveGenerator : MonoBehaviour
 	void Update()
 	{
 		time += Time.deltaTime;
+		if (duration > 0.0f && time >= duration) 
+		{
+			time = Mathf.Repeat(time, duration);
+		}
 
 		Vector3[] points = sphere.GetPoints();
 		float[] heights = new float[points.Length];
@@ -85,5 +91,10 @@ public class WaveGenerator : MonoBehaviour
 	public void UseRecalculatedNormals(bool value)
 	{
 		useRecalculatedNormals = value;
+	}
+
+	public void SetDuration(float value)
+	{
+		duration = value;
 	}
 }
