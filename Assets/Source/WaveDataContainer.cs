@@ -50,6 +50,11 @@ public class WaveDataContainer : System.Collections.IEnumerable
 		waveData.Add(item as WaveData);
 	}
 
+	public bool Remove(WaveData item)
+	{
+		return waveData.Remove(item);
+	}
+
 	public void Save(string path)
 	{
 		var serializer = new XmlSerializer(typeof(WaveDataContainer));

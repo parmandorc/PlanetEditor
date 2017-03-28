@@ -58,4 +58,9 @@ public class EditorManager : MonoBehaviour
 	{
 		NewWave(waveGenerator.NewWave());
 	}
+
+	public void DeleteWave(WaveData wave)
+	{
+		waveGenerator.RemoveWave(wave);
+	}
 }

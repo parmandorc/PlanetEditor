@@ -112,4 +112,9 @@ public class WaveGenerator : MonoBehaviour
 		waveData.Add(newWave);
 		return newWave;
 	}
+
+	public void RemoveWave(WaveData wave)
+	{
+		waveData.Remove(wave);
+	}
 }
