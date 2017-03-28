@@ -65,7 +65,7 @@ public class WaveDataContainer : System.Collections.IEnumerable
 				serializer.Serialize(stream, this);
 			}
 		} 
-		catch (IOException e)
+		catch (System.Exception e)
 		{
 			Debug.LogException(e);
 		}
@@ -81,7 +81,7 @@ public class WaveDataContainer : System.Collections.IEnumerable
 				return serializer.Deserialize(stream) as WaveDataContainer;
 			}
 		} 
-		catch (IOException e) 
+		catch (System.Exception e) 
 		{
 			Debug.LogException(e);
 			return null;

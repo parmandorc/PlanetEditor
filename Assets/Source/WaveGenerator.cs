@@ -38,6 +38,11 @@ public class WaveGenerator : MonoBehaviour
 		if (waveData == null)
 		{
 			waveData = WaveDataContainer.Load(Path.Combine(Application.dataPath, dataFileName));
+
+			if (waveData == null) 
+			{
+				waveData = new WaveDataContainer();
+			}
 		}
 
 		if (OnLoadWaveData != null)
